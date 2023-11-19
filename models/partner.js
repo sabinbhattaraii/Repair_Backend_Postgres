@@ -16,7 +16,7 @@ export const Partners = sequelize.define(
     image: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+    }
   },
   { freezeTableName: true }
 );

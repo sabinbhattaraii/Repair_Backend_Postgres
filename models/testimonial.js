@@ -24,7 +24,7 @@ export const Testimonial = sequelize.define(
     course: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+    }
   },
   { freezeTableName: true }
 );
