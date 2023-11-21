@@ -53,7 +53,6 @@ export const Training = sequelize.define(
       type: DataTypes.NUMBER,
       defaultValue: 0,
     },
-    reviews: {},
   },
   {
     freezeTableName: true,
@@ -67,14 +66,14 @@ export const Training = sequelize.define(
   }
 );
 
-Training.belongsTo(Categories,{
-    foreignKey: 'category',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+Training.belongsTo(Categories, {
+  foreignKey: "category",
+  onUpdate: "CASCADE",
+  onDelete: "CASCADE",
 });
 
-Training.belongsTo(User,{
-    foreignKey: 'user',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+Training.belongsTo(User, {
+  foreignKey: "user",
+  onUpdate: "CASCADE",
+  onDelete: "CASCADE",
 });
