@@ -8,4 +8,6 @@ export * as partnerService from './partnerService.js';
 
 export * as registerFormService from './registerFormService.js';
 
-export * as studentProjectService from './studentProjectService.js'
+export * as studentProjectService from './studentProjectService.js';
+
+export * as teamService from './teamService.js';
