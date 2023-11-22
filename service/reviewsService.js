@@ -24,13 +24,14 @@ export async function createReviewsService(data, res) {
   }
 
   const savedReview = await Reviews.create(data);
-  savedReview.dataValues.user = user;
+  savedReview.setUser(user);
+  // savedReview.dataValues.user = user;
 
   return savedReview;
 }
 
 export async function getSpecifiedReviewsService(id) {
-  return Reviews.findByPk(id, { include: "User" });
+  return Reviews.findByPk(id, { include: [{ model : User }] });
 }
 
 export function getAllReviewsService({

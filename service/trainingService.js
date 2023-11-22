@@ -28,14 +28,14 @@ export async function createTrainingService(data, res) {
   }
 
   const savedTraining = await Training.create(data);
-  savedTraining.setUser(user);
   savedTraining.setCategories(category);
+  savedTraining.setUser(user);
 
   return savedTraining;
 }
 
 export async function getSpecifiedTrainingService(id) {
-  return Training.findByPk(id, { include: [{ model: User }, { model: Categories }] });
+  return Training.findByPk(id, { include: [{ model: Categories } ,{ model: User }] });
 }
 
 export function getAllTrainingService({
@@ -48,7 +48,7 @@ export function getAllTrainingService({
   const queryOptions = {
     attributes: select,
     where: find,
-    include: ["User", "Categories"],
+    include: ["Categories" , "User"],
   };
 
   if (sort) {
