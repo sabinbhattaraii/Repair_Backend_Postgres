@@ -32,7 +32,7 @@ export const Training = sequelize.define(
       allowNull: false,
     },
     priority: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validator: {
         len: {
@@ -46,11 +46,11 @@ export const Training = sequelize.define(
       allowNull: false,
     },
     ratings: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
     numOfReviews: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
   },
