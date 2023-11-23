@@ -15,7 +15,7 @@ export const Reviews = sequelize.define(
       allowNull: false,
     },
     rating: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     comment: {
