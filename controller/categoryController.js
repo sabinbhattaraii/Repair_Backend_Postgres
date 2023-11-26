@@ -56,9 +56,12 @@ export const updateCategory = catchAsyncError(async(req,res,next) => {
 export const deleteCategory = catchAsyncError(async(req,res,next) => {
     let id = req.params.id
     let data = await categoryService.deleteCategoryService(id);
+    if(!data) {
+        sendErrResponseByMsg(res,"Category Not Found",HttpStatus.NOT_FOUND)
+    }
     successResponseData({
         res : res,
-        message : `Category with this ${id} deleted sucessfully`,
+        message : `Category with this ${id} deleted successfully`,
         statusCode : HttpStatus.OK,
         data
     })
