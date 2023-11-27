@@ -5,6 +5,7 @@ import feedbackRouter from "./feedbackRoute.js";
 import partnerRouter from "./partnerRoute.js";
 import registerformRouter from "./registerformRoute.js";
 import reviewRouter from "./reviewRoute.js";
+import testimonialRouter from "./testimonialRoute.js";
 
 const apiRouter = Router()
 
@@ -32,7 +33,11 @@ const ourRoutes = [
     {
         path : `/review`,
         router : reviewRouter
-    }
+    },
+    {
+        path : `/testimonial`,
+        router : testimonialRouter
+    },
 ]
 ourRoutes.forEach((route) => {
     apiRouter.use(route.path,route.router)
