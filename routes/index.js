@@ -3,6 +3,7 @@ import categoryRouter from "./categoryRoute.js";
 import enquiryRouter from "./enquiryRoute.js";
 import feedbackRouter from "./feedbackRoute.js";
 import partnerRouter from "./partnerRoute.js";
+import registerformRouter from "./registerformRoute.js";
 
 const apiRouter = Router()
 
@@ -22,6 +23,10 @@ const ourRoutes = [
     {
         path : `/partner`,
         router : partnerRouter
+    },
+    {
+        path : `/registerform`,
+        router : registerformRouter
     },
 ]
 ourRoutes.forEach((route) => {
