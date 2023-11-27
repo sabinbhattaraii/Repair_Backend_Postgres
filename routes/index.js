@@ -1,6 +1,7 @@
 import { Router } from "express";
 import categoryRouter from "./categoryRoute.js";
 import enquiryRouter from "./enquiryRoute.js";
+import feedbackRouter from "./feedbackRoute.js";
 
 const apiRouter = Router()
 
@@ -12,6 +13,10 @@ const ourRoutes = [
     {
         path : `/enquiry`,
         router : enquiryRouter
+    },
+    {
+        path : `/feedback`,
+        router : feedbackRouter
     },
 ]
 ourRoutes.forEach((route) => {
