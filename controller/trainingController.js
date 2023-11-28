@@ -64,3 +64,29 @@ export const getAllTraining = catchAsyncError(async(req,res,next) => {
     req.service = await trainingService.getAllTrainingService
     next()
 })
+
+export const updateTraining = catchAsyncError(async(req,res,next) => {
+    let body = req.body
+    let id = req.params.id
+    let data = await trainingService.updateTrainingService({data : body,id});
+    successResponseData({
+        res : res,
+        message : `Training with this ${id} updated successfully`,
+        statusCode : HttpStatus.OK,
+        data
+    })
+})
+
+export const deleteTraining = catchAsyncError(async(req,res,next) => {
+    let id = req.params.id
+    let data = await trainingService.deleteTrainingService(id);
+    if(!data) {
+        sendErrResponseByMsg(res,"Training Not Found",HttpStatus.NOT_FOUND)
+    }
+    successResponseData({
+        res : res,
+        message : `Training with this ${id} deleted successfully`,
+        statusCode : HttpStatus.OK,
+        data
+    })
+})
