@@ -7,6 +7,7 @@ import registerformRouter from "./registerformRoute.js";
 import reviewRouter from "./reviewRoute.js";
 import testimonialRouter from "./testimonialRoute.js";
 import projectsRouter from "./studentprojectRoute.js";
+import teamRouter from "./teamRoute.js";
 
 const apiRouter = Router()
 
@@ -42,6 +43,10 @@ const ourRoutes = [
     {
         path : `/projects`,
         router : projectsRouter
+    },
+    {
+        path : `/teams`,
+        router : teamRouter
     },
 ]
 ourRoutes.forEach((route) => {
