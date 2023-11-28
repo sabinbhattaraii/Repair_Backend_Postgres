@@ -11,3 +11,5 @@ export * as registerformController from './registerformController.js';
 export * as reviewController from './reviewController.js';
 
 export * as testimonialController from './testimonialController.js';
+
+export * as studentProjectController from './studentprojectController.js';
