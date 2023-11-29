@@ -17,3 +17,5 @@ export * as studentProjectController from './studentprojectController.js';
 export * as teamController from './teamController.js';
 
 export * as trainingController from './trainingController.js';
+
+export * as userController from './userController.js';

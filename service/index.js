@@ -17,3 +17,5 @@ export * as testimonialService from './testimonialService.js';
 export * as reviewServices from './reviewsService.js';
 
 export * as trainingService from './trainingService.js';
+
+export * as userService from './userService.js';
