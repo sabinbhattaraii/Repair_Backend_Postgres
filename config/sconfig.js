@@ -12,3 +12,9 @@ export const fromPassword = process.env.FROM_PASSWORD;
 export const emailHost = process.env.EMAIL_HOST;
 export const emailPort = process.env.EMAIL_PORT;
 export const emailSecure = process.env.EMAIL_SECURE;
+
+// config for token verification
+export const expiryIn = process.env.EXPIRY_IN
+export const secretKey = process.env.SECRET_KEY
+export const reset_expiry_in = process.env.RESET_EXPIRE_IN;
+export const verifEmailExpiryIn = process.env.VERIFY_EMAIL_EXPIRY_IN || "1d"
