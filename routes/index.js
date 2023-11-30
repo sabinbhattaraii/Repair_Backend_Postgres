@@ -9,6 +9,7 @@ import testimonialRouter from "./testimonialRoute.js";
 import projectsRouter from "./studentprojectRoute.js";
 import teamRouter from "./teamRoute.js";
 import trainingRouter from "./trainingRoute.js";
+import userRouter from "./userRoute.js";
 
 const apiRouter = Router()
 
@@ -52,6 +53,10 @@ const ourRoutes = [
     {
         path : `/training`,
         router : trainingRouter
+    },
+    {
+        path : `/user`,
+        router : userRouter
     },
 ]
 ourRoutes.forEach((route) => {
