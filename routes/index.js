@@ -10,6 +10,7 @@ import projectsRouter from "./studentprojectRoute.js";
 import teamRouter from "./teamRoute.js";
 import trainingRouter from "./trainingRoute.js";
 import userRouter from "./userRoute.js";
+import fileUploadRouter from "./fileUploadRoute.js";
 
 const apiRouter = Router()
 
@@ -57,6 +58,10 @@ const ourRoutes = [
     {
         path : `/user`,
         router : userRouter
+    },
+    {
+        path : `/file`,
+        router : fileUploadRouter
     },
 ]
 ourRoutes.forEach((route) => {
