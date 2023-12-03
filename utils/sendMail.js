@@ -1,14 +1,17 @@
 import nodemailer from 'nodemailer';
-import { emailHost,fromEmail,fromPassword,emailPort,emailSecure } from '../config/sconfig.js';
+import { emailHost,fromEmail,fromPassword,emailPort } from '../config/sconfig.js';
 
 let transporterInfo = {
     host : emailHost,
-    port : emailPort,
-    secure : emailSecure,
+    port : 587,
+    secure : true,
+    tls: {
+        rejectUnauthorized: false,  // Disable certificate validation (not recommended in production)
+      },
     auth : {
         user : fromEmail,
-        pass : fromPassword
-    }
+        pass : fromPassword,
+    },
 }
 
 export let sendMail = async(mailInfo) => {
@@ -18,6 +21,6 @@ export let sendMail = async(mailInfo) => {
         return info;
     } catch(error){
         console.error('Error sending email:', error.message);
-        throw new Error('Failed to send email');
+        throw Error('Failed to send email');
     }
 }
