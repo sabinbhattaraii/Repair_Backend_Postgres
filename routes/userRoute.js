@@ -4,4 +4,8 @@ import { sortFilterPagination } from "../middleware/sortSelectPage.js";
 
 const userRouter = Router()
 
+userRouter
+    .route("/register")
+    .post(userController.createUser)
+
 export default userRouter;
