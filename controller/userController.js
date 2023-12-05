@@ -97,3 +97,41 @@ export const logoutUser = catchAsyncError(async (req, res) => {
         statusCode: HttpStatus.OK,
     })
 })
+
+// get all user
+export const getAllUser = catchAsyncError(async (req, res, next) => {
+    let find = {};
+    if (req.query.name) {
+        find.userName = req.query.name;
+    }
+    if (req.query.email) {
+        find.email = { $regex: req.query.email, $options: "i" };
+    }
+    if (req.query.roles) {
+        find.roles = { $in: req.query.roles.split(",") }
+    }
+    req.find = find;
+    req.service = userService.getAllUserService;
+    req.myOwnSelect = "-password";
+    next();
+})
+
+// GET SPECIFIC USER
+export const getSpecificUser = catchAsyncError(async (req,res,next) => {
+    let id = req.params.id;
+    let data = await userService.getSpecifiedUserService(id);
+    if(data){
+        delete data._doc.password;
+        successResponseData({
+            res,
+            message: "Read user successfully.",
+            statusCode: HttpStatus.OK,
+            data,
+        })
+    } else {
+        throwError({
+            message : "Could'nt found user.",
+            statusCode: HttpStatus.NOT_FOUND,
+        });
+    }
+})

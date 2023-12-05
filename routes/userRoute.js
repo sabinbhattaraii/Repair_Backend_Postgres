@@ -17,4 +17,12 @@ userRouter
     .route("/logout")
     .post(isValidToken,userController.logoutUser)
 
+userRouter
+    .route("/")
+    .get(isValidToken,userController.getAllUser)
+
+userRouter
+    .route("/:id")
+    .get(userController.getSpecificUser)
+
 export default userRouter;
