@@ -19,3 +19,5 @@ export * as reviewServices from './reviewsService.js';
 export * as trainingService from './trainingService.js';
 
 export * as userService from './userService.js';
+
+export * as tokenService from './tokenService.js';

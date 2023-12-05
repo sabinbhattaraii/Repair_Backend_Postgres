@@ -8,4 +8,8 @@ userRouter
     .route("/register")
     .post(userController.createUser)
 
+userRouter
+    .route("/login")
+    .post(userController.loginUser)
+
 export default userRouter;
