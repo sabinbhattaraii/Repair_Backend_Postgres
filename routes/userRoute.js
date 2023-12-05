@@ -19,10 +19,14 @@ userRouter
 
 userRouter
     .route("/")
-    .get(isValidToken,userController.getAllUser)
+    .get(isValidToken,userController.getAllUser,sortFilterPagination)
 
 userRouter
     .route("/:id")
     .get(userController.getSpecificUser)
+
+userRouter
+    .route("/:id")
+    .delete(isValidToken,userController.deleteUser)
 
 export default userRouter;

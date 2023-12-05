@@ -135,3 +135,31 @@ export const getSpecificUser = catchAsyncError(async (req,res,next) => {
         });
     }
 })
+
+//Delete User
+export const deleteUser = catchAsyncError(async(req, res, next) => {
+    let id = req.params.id;
+
+    let userId = userService.getSpecifiedUserService(id)
+
+    if(id === userId._id) {
+        throwError({
+            message : "You can't delete your own account",
+            statusCode : HttpStatus.UNAUTHORIZED
+        });
+
+        let userdata = await userService.deleteSpecifiedUserService(id)
+        delete data?._doc?.password
+        successResponseData({
+            res,
+            message : "User deleted successfully.",
+            statusCode : HttpStatus.OK,
+            userdata,
+        })
+    } else {
+        throwError({
+            message : "Couldn't found user.",
+            statusCode : HttpStatus.NOT_FOUND
+        })
+    }
+})
