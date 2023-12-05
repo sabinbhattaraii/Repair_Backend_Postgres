@@ -142,7 +142,7 @@ export const deleteUser = catchAsyncError(async(req, res, next) => {
 
     let userId = userService.getSpecifiedUserService(id)
 
-    if(id === userId._id) {
+    if(id === userId.id) {
         throwError({
             message : "You can't delete your own account",
             statusCode : HttpStatus.UNAUTHORIZED
