@@ -84,3 +84,14 @@ export let loginUser = catchAsyncError(async (req, res) => {
         }
     }
 })
+
+// logout user
+export const logoutUser = catchAsyncError(async (req, res) => {
+    let id = req.token
+    await tokenService.deleteSpecifiedTokenService(id)
+    successResponseData({
+        res: res,
+        message: "Logout Sucessfully",
+        statusCode: HttpStatus.OK,
+    })
+})
