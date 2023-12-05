@@ -12,6 +12,32 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      userId: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Please enter your userId" },
+        },
+      },
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          isIn: {
+            args: [["ACCESS", "RESET_PASSWORD", "VERIFY_EMAIL"]],
+            msg: "Invalid token type",
+          },
+        },
+        defaultValue: "ACCESS",
+      },
+      expiration: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        validate: {
+          notNull: true,
+        },
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
