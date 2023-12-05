@@ -20,3 +20,10 @@ export const verifEmailExpiryIn = process.env.VERIFY_EMAIL_EXPIRY_IN || "1d"
 
 // config for multer 
 export const staticFolder = "./public"
+
+//for token verification
+export const tokenTypes = {
+    ACCESS: "access",
+    RESET_PASSWORD: "resetPassword",
+    VERIFY_EMAIL: "verifEmail"
+  };

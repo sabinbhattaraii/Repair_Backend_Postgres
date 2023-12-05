@@ -65,6 +65,8 @@ export let loginUser = catchAsyncError(async (req, res) => {
 
             let data = {
                 token: token,
+                type: tokenTypes.ACCESS,
+                expiration: getTokenExpiryTime(token).toLocaleString()
             }
             await tokenService.createTokenService(data,res)
             delete user?._doc?.password
