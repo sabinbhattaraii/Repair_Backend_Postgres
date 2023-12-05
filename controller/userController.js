@@ -59,7 +59,7 @@ export let loginUser = catchAsyncError(async (req, res) => {
     } else {
         let isValidPassword = await comparePassword(password, user.password)
         if (isValidPassword) {
-            let infoObj = { userId: user._id, role: user.role }
+            let infoObj = { userId: user.id, role: user.role }
             let token = await generateToken(infoObj, secretKey, expiryIn)
             console.log(token)
 
