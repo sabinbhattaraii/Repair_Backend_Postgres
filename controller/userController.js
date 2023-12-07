@@ -32,7 +32,7 @@ export const createUser = catchAsyncError(async (req, res, next) => {
 
     await sendEmailForCreatedUser({
       email: email,
-      userName: body.name,
+      name: body.name,
       password: body.password,
     });
 
