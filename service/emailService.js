@@ -23,7 +23,7 @@ export const sendEmailForCreatedUser = async ({
         `;
 
   await sendMail({
-    from: `Byte <${fromEmail}>`,
+    from: `Hello Repair <${fromEmail}>`,
     to: [email],
     subject: "Email verification for User Creation",
     html:html,
