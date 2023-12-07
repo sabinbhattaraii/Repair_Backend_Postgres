@@ -24,7 +24,7 @@ export const staticFolder = "./public"
 
 //for token verification
 export const tokenTypes = {
-    ACCESS: "access",
-    RESET_PASSWORD: "resetPassword",
-    VERIFY_EMAIL: "verifEmail"
+    ACCESS: "ACCESS",
+    RESET_PASSWORD: "RESET_PASSWORD",
+    VERIFY_EMAIL: "VERIFY_EMAIL"
   };

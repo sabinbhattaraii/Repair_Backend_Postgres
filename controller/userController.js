@@ -1,10 +1,12 @@
+import { expiryIn, secretKey, tokenTypes } from "../config/sconfig.js";
 import { HttpStatus } from "../constant/constant.js";
 import successResponseData from "../helper/successResponseData.js";
 import catchAsyncError from "../middleware/catchAsyncError.js";
 import errorMiddleware from "../middleware/errorMiddleware.js";
 import { sendEmailForCreatedUser } from "../service/emailService.js";
 import { tokenService, userService } from "../service/index.js";
-import { hashPassword } from "../utils/hashFunction.js";
+import getTokenExpiryTime from "../utils/getTokenExpiryTime.js";
+import { comparePassword, hashPassword } from "../utils/hashFunction.js";
 import { throwError } from "../utils/throwError.js";
 import { generateToken } from "../utils/token.js";
 
@@ -65,6 +67,7 @@ export let loginUser = catchAsyncError(async (req, res) => {
 
             let data = {
                 token: token,
+                userId : user.id,
                 type: tokenTypes.ACCESS,
                 expiration: getTokenExpiryTime(token).toLocaleString()
             }
