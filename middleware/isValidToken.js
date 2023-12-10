@@ -17,9 +17,10 @@ export let isValidToken = catchAsyncError(async (req, res, next) => {
         //it check weather the token is made from secretkey and check weather the expiry time reach
         let info = await verifyToken(token, secretKey);
 
-        let user = await userService.getSpecifiedUserService(
-            id = info.userId,
-        );
+        let user = await userService.getSpecifiedUserService({
+            id : info.userId,
+        });
+        
         let tok = await TokenDatas.findOne({ token: token });
 
         // check if the given token is in our database
@@ -30,7 +31,7 @@ export let isValidToken = catchAsyncError(async (req, res, next) => {
         } else {
             req.token = {
                 token: token,
-                tokenId: tok._id,
+                tokenId: tok.id,
             };
             req.info = {
                 ...info,

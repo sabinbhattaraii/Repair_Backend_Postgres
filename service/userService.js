@@ -18,12 +18,12 @@ export async function createUserService(data, res) {
   return savedUser;
 }
 
-export async function getSpecifiedUserServiceUser(id){
-  return User.findByPK(id);
+export async function getSpecifiedUserService({id}){
+  return await User.findByPk(id);
 }
 
-export async function getMyProfileService(id){
-  return User.findByPK(id);
+export async function getMyProfileService({id}){
+  return await User.findByPk(id);
 }
 
 export function getAllUserService({
