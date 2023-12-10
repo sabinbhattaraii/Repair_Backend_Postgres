@@ -18,9 +18,13 @@ export async function createUserService(data, res) {
   return savedUser;
 }
 
-export const getSpecifiedUserService = async (id) => User.findByPk(id);
+export async function getSpecifiedUserServiceUser(id){
+  return User.findByPK(id);
+}
 
-export const getMyProfileService = async (id) => User.findByPK(id);
+export async function getMyProfileService(id){
+  return User.findByPK(id);
+}
 
 export function getAllUserService({
   find = {},
