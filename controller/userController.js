@@ -24,11 +24,9 @@ export const createUser = catchAsyncError(async (req, res, next) => {
       statusCode: HttpStatus.UNAUTHORIZED,
     });
   } else {
-
     //hashing password
     let passHashedPassword = await hashPassword(body.password);
     body.password = passHashedPassword;
-
 
     let data = await userService.createUserService(body, res);
 
@@ -47,122 +45,166 @@ export const createUser = catchAsyncError(async (req, res, next) => {
   }
 });
 
-
 //login user
 export let loginUser = catchAsyncError(async (req, res) => {
-    let email = req.body.email
-    let password = req.body.password
+  let email = req.body.email;
+  let password = req.body.password;
 
-    let user = await userService.getSpecificUserByAny(email)
-    if (user === null) {
-        let error = new errorMiddleware("Please enter valid email or password")
-        error.statusCode = HttpStatus.UNAUTHORIZED
-        throw error
+  let user = await userService.getSpecificUserByAny(email);
+  if (user === null) {
+    let error = new errorMiddleware("Please enter valid email or password");
+    error.statusCode = HttpStatus.UNAUTHORIZED;
+    throw error;
+  } else {
+    let isValidPassword = await comparePassword(password, user.password);
+    if (isValidPassword) {
+      let infoObj = { userId: user.id, role: user.role };
+      let token = await generateToken(infoObj, secretKey, expiryIn);
+      console.log(token);
+
+      let data = {
+        token: token,
+        userId: user.id,
+        type: tokenTypes.ACCESS,
+        expiration: getTokenExpiryTime(token).toLocaleString(),
+      };
+      await tokenService.createTokenService(data, res);
+      delete user?._doc?.password;
+      successResponseData({
+        res: res,
+        message: "Login Successfully",
+        statusCode: HttpStatus.OK,
+        data: {
+          token: token,
+          user: user,
+        },
+      });
     } else {
-        let isValidPassword = await comparePassword(password, user.password)
-        if (isValidPassword) {
-            let infoObj = { userId: user.id, role: user.role }
-            let token = await generateToken(infoObj, secretKey, expiryIn)
-            console.log(token)
-
-            let data = {
-                token: token,
-                userId : user.id,
-                type: tokenTypes.ACCESS,
-                expiration: getTokenExpiryTime(token).toLocaleString()
-            }
-            await tokenService.createTokenService(data,res)
-            delete user?._doc?.password
-            successResponseData({
-                res: res,
-                message: "Login Successfully",
-                statusCode: HttpStatus.OK,
-                data: {
-                    token: token,
-                    user: user,
-                }
-            })
-        } else {
-            let error = new Error("Please Enter Valid Email or Password")
-            error.statusCode = HttpStatus.UNAUTHORIZED
-            throw error
-        }
+      let error = new Error("Please Enter Valid Email or Password");
+      error.statusCode = HttpStatus.UNAUTHORIZED;
+      throw error;
     }
-})
+  }
+});
 
 // logout user
 export const logoutUser = catchAsyncError(async (req, res) => {
-    let id = req.token
-    await tokenService.deleteSpecifiedTokenService(id)
-    successResponseData({
-        res: res,
-        message: "Logout Sucessfully",
-        statusCode: HttpStatus.OK,
-    })
-})
+  let id = req.token;
+  await tokenService.deleteSpecifiedTokenService(id);
+  successResponseData({
+    res: res,
+    message: "Logout Sucessfully",
+    statusCode: HttpStatus.OK,
+  });
+});
 
 // get all user
 export const getAllUser = catchAsyncError(async (req, res, next) => {
-    let find = {};
-    if (req.query.name) {
-        find.userName = req.query.name;
-    }
-    if (req.query.email) {
-        find.email = { $regex: req.query.email, $options: "i" };
-    }
-    if (req.query.roles) {
-        find.roles = { $in: req.query.roles.split(",") }
-    }
-    req.find = find;
-    req.service = userService.getAllUserService;
-    req.myOwnSelect = "-password";
-    next();
-})
+  let find = {};
+  if (req.query.name) {
+    find.userName = req.query.name;
+  }
+  if (req.query.email) {
+    find.email = { $regex: req.query.email, $options: "i" };
+  }
+  if (req.query.roles) {
+    find.roles = { $in: req.query.roles.split(",") };
+  }
+  req.find = find;
+  req.service = userService.getAllUserService;
+  req.myOwnSelect = "-password";
+  next();
+});
 
 // GET SPECIFIC USER
-export const getSpecificUser = catchAsyncError(async (req,res,next) => {
-    let id = req.params.id;
-    let data = await userService.getSpecifiedUserService(id);
-    if(data){
-        delete data._doc.password;
-        successResponseData({
-            res,
-            message: "Read user successfully.",
-            statusCode: HttpStatus.OK,
-            data,
-        })
-    } else {
-        throwError({
-            message : "Could'nt found user.",
-            statusCode: HttpStatus.NOT_FOUND,
-        });
-    }
-})
+export const getSpecificUser = catchAsyncError(async (req, res, next) => {
+  let id = req.params.id;
+  let data = await userService.getSpecifiedUserService(id);
+  if (data) {
+    delete data._doc.password;
+    successResponseData({
+      res,
+      message: "Read user successfully.",
+      statusCode: HttpStatus.OK,
+      data,
+    });
+  } else {
+    throwError({
+      message: "Could'nt found user.",
+      statusCode: HttpStatus.NOT_FOUND,
+    });
+  }
+});
 
 //Delete User
-export const deleteUser = catchAsyncError(async(req, res, next) => {
-    let id = req.params.id;
+export const deleteUser = catchAsyncError(async (req, res, next) => {
+  let id = req.params.id;
 
-    let userId = userService.getSpecifiedUserService(id)
+  let userId = userService.getSpecifiedUserService(id);
 
-    if(id === userId.id) {
-        throwError({
-            message : "You can't delete your own account",
-            statusCode : HttpStatus.UNAUTHORIZED
-        });
+  if (id === userId.id) {
+    throwError({
+      message: "You can't delete your own account",
+      statusCode: HttpStatus.UNAUTHORIZED,
+    });
 
-        let userdata = await userService.deleteSpecifiedUserService(id)
-        delete data?._doc?.password
-        successResponseData({
-            res,
-            message : "User deleted successfully.",
-            statusCode : HttpStatus.OK,
-            userdata,
-        })
-    } else {
-        throwError({
-            message : "Couldn't found user.",
-            statusCode : HttpStatus.NOT_FOUND
-        })
+    let userdata = await userService.deleteSpecifiedUserService(id);
+    delete data?._doc?.password;
+    successResponseData({
+      res,
+      message: "User deleted successfully.",
+      statusCode: HttpStatus.OK,
+      userdata,
+    });
+  } else {
+    throwError({
+      message: "Couldn't found user.",
+      statusCode: HttpStatus.NOT_FOUND,
+    });
+  }
+});
+
+
+// My Profile
+export let userMyProfile = catchAsyncError(async (req, res) => {
+    let id = req.info.userId;
+    let data = await userService.getMyProfileService({ id });
+
+    successResponseData({
+        res,
+        message: "Profile read successfully.",
+        statusCode: HttpStatus.OK,
+        data,
+    });
+});
+
+
+// Update User
+export let updateUser = (profile) =>
+  catchAsyncError(async (req, res) => {
+    let body = { ...req.body };
+
+    //if user is other than admin lets not allow him to change the role
+    if (!req.info.roles.includes("admin")) {
+      delete body.roles;
     }
-})
+
+    let id = profile === "myProfile" ? req.info.userId : req.params.id;
+    let user = await userService.getSpecifiedUserService({ id });
+    if (user) {
+      let data = await userService.updateSpecifiedUserService({ id, body });
+      delete data._doc.password;
+      delete data._doc.email;
+      successResponseData({
+        res,
+        message: "User updated successfully.",
+        statusCode: HttpStatus.CREATED,
+        data,
+      });
+    } else {
+      throwError({
+        message: "Could not found user.",
+        statusCode: HttpStatus.NOT_FOUND,
+      });
+    }
+});

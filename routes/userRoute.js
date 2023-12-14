@@ -25,6 +25,14 @@ userRouter
     .get(isValidToken,userController.getAllUser,sortFilterPagination)
 
 userRouter
+    .route("/my-profile")
+    .get(isValidToken,userController.userMyProfile)
+
+userRouter
+    .route("/update-profile")
+    .patch(isValidToken,userController.updateUser("profile"))
+
+userRouter
     .route("/:id")
     .get(userController.getSpecificUser)
 
