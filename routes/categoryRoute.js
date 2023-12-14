@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { categoryController } from "../controller/index.js";
 import { sortFilterPagination } from "../middleware/sortSelectPage.js";
+import validation from "../middleware/validation.js";
+import categorySchemaValidation from "../validation/categoryValidation.js";
 
 const categoryRouter = Router()
 
 categoryRouter
     .route('/')
-    .post(categoryController.createCategory)
+    .post(validation(categorySchemaValidation),categoryController.createCategory)
     .get(categoryController.getAllCategory,sortFilterPagination)
 
 categoryRouter
