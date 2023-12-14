@@ -2,12 +2,14 @@ import { Router } from "express";
 import { userController } from "../controller/index.js";
 import { sortFilterPagination } from "../middleware/sortSelectPage.js";
 import { isValidToken } from "../middleware/isValidToken.js";
+import validation from "../middleware/validation.js";
+import userSchemaValidation from "../validation/userValidation.js";
 
 const userRouter = Router()
 
 userRouter
     .route("/register")
-    .post(userController.createUser)
+    .post(validation(userSchemaValidation), userController.createUser)
 
 userRouter
     .route("/login")

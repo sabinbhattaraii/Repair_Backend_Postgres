@@ -4,6 +4,7 @@ import cors from 'cors';
 import { port,apiVersion } from './config/sconfig.js';
 import apiRouter from './routes/index.js';
 import { sequelize } from './connectDb/dbPostgres.js';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express()
 
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(`${apiVersion}`,apiRouter)
+
+app.use(errorHandler)
 
 app.get('/',(req,res)=> {
     res.send('HomePage')
