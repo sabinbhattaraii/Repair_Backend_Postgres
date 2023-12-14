@@ -4,6 +4,7 @@ import { sortFilterPagination } from "../middleware/sortSelectPage.js";
 import { isValidToken } from "../middleware/isValidToken.js";
 import validation from "../middleware/validation.js";
 import userSchemaValidation from "../validation/userValidation.js";
+import loginSchemaValidation from "../validation/loginValidation.js";
 
 const userRouter = Router()
 
@@ -13,7 +14,7 @@ userRouter
 
 userRouter
     .route("/login")
-    .post(userController.loginUser)
+    .post(validation(loginSchemaValidation),userController.loginUser)
 
 userRouter
     .route("/logout")
