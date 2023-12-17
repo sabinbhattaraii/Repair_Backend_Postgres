@@ -29,3 +29,33 @@ export const sendEmailForCreatedUser = async ({
     html:html,
   });
 };
+
+export const sendEmailToForgotPassword = async ({
+  email,
+  token,
+  name,
+}) => {
+  let link = `http://localhost:5000/resetPassword/?token=${token}`;
+  const html = `
+  <div style="background: lightgray; padding: 20px; margin: 30px;">
+    <div style="background: #fff; padding: 20px">
+      <br><br> 
+      Dear ${name}, <br>
+      To reset your password, please click on below button: <br>
+      <div style="text-align:center; margin-top: 15px;">
+        <a style="background-color: #FFC43E; padding: 10px; border-radius: 10px; color: black; font-weight: bold; text-decoration: none;" href=${link}>Reset Password</a>
+      </div>
+      <br> <br>
+      if above button does not works, click on below link: <br> <a href=${link}>${link}</a>
+    </div>
+
+  </div>
+`;
+
+  await sendMail({
+    from: `"Hello Repair" <${fromEmail}>`,
+    to: [email],
+    subject: "Forgot Password",
+    html
+  });
+}

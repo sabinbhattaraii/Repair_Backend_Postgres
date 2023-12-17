@@ -33,6 +33,14 @@ userRouter
     .patch(isValidToken,userController.updateUser("profile"))
 
 userRouter
+    .route("/update-password")
+    .patch(isValidToken,userController.updatePassword)
+
+userRouter
+    .route("/forget-password")
+    .post(userController.forgotUserPassword)
+
+userRouter
     .route("/:id")
     .get(userController.getSpecificUser)
 
