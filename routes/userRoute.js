@@ -6,6 +6,7 @@ import validation from "../middleware/validation.js";
 import userSchemaValidation from "../validation/userValidation.js";
 import loginSchemaValidation from "../validation/loginValidation.js";
 import userProfileValidation from "../validation/userProfileValidation.js";
+import userPasswordValidation from "../validation/userPasswordValidation.js";
 
 const userRouter = Router()
 
@@ -35,7 +36,7 @@ userRouter
 
 userRouter
     .route("/update-password")
-    .patch(isValidToken,userController.updatePassword)
+    .patch(validation(userPasswordValidation),isValidToken,userController.updatePassword)
 
 userRouter
     .route("/forget-password")
