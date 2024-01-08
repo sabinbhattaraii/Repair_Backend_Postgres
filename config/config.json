@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "postgre1234",
+    "username": "repair_user",
+    "password": "3dAAN7475R66pb8NzhTVzuYRrAzDgBEJ",
     "database": "repair",
-    "host": "localhost",
+    "host": "dpg-cmdse4821fec73d5usd0-a",
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
-    "password": "postgre1234",
+    "username": "repair_user",
+    "password": "3dAAN7475R66pb8NzhTVzuYRrAzDgBEJ",
     "database": "repair",
-    "host": "localhost",
+    "host": "dpg-cmdse4821fec73d5usd0-a",
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "postgre1234",
+    "username": "repair_user",
+    "password": "3dAAN7475R66pb8NzhTVzuYRrAzDgBEJ",
     "database": "repair",
-    "host": "localhost",
+    "host": "dpg-cmdse4821fec73d5usd0-a",
     "dialect": "postgres"
   }
 }
